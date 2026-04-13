@@ -1,3 +1,4 @@
+
 // Funzione per l'ora (già vista)
 async function aggiornaOra() {
     const res = await fetch('/ora');
@@ -26,3 +27,28 @@ async function inviaSaluto() {
 // Colleghiamo i bottoni alle funzioni
 document.getElementById('btn-ora').addEventListener('click', aggiornaOra);
 document.getElementById('btn-saluto').addEventListener('click', inviaSaluto);
+
+// NUOVA FUNZIONE: Somma di due numeri
+async function calcolaSomma() {
+    // 1. Prendiamo i valori dai due input
+    const n1 = document.getElementById('num1').value;
+    const n2 = document.getElementById('num2').value;
+
+    // 2. Controllo rapido che non siano vuoti
+    if (n1 === "" || n2 === "") {
+        alert("Inserisci entrambi i numeri!");
+        return;
+    }
+
+    // 3. Chiamata al server (passiamo a e b come parametri nell'URL)
+    const res = await fetch(`/somma?a=${n1}&b=${n2}`);
+    const json = await res.json();
+
+    // 4. Scriviamo il risultato nel tag h2 dedicato
+    document.getElementById('risultato-somma').innerText = "Risultato: " + json.risultato;
+}
+
+// Colleghiamo i bottoni alle funzioni
+document.getElementById('btn-ora').addEventListener('click', aggiornaOra);
+document.getElementById('btn-saluto').addEventListener('click', inviaSaluto);
+document.getElementById('btn-somma').addEventListener('click', calcolaSomma); // 
